@@ -1,7 +1,12 @@
- 
+import { Login } from "./modules/login/components/Login";
 
-function App() { 
-  return <h1>Hello</h1>
+export function App() {
+  return (
+
+    <div className="bg-slate-800 flex justify-center items-center h-[70vw] w-[100vw] md:w-auto">
+      <div className="text-slate-400">
+        <Login />
+      </div>
+    </div>
+  );
 }
-
-export default App
