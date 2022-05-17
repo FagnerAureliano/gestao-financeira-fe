@@ -44,7 +44,7 @@ export function Login() {
               </div>
             </div>
             <div className="">
-            <button className="bg-green-600 rounded-lg px-20 h-6 text-white flex m-4 items-center group" type="submit" > LOGIN </button>
+            <button className="bg-green-600 hover:bg-green-500 rounded-lg px-20 h-6 transition-colors text-white flex m-4 items-center group" type="submit" > LOGIN </button>
             </div>
           </Form>
         </Formik>
