@@ -1,13 +1,7 @@
-import Login from "./modules/login/components/login.component";
+ 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Login />
-      </header>
-    </div>
-  );
+function App() { 
+  return <h1>Hello</h1>
 }
 
-export default App;
+export default App
