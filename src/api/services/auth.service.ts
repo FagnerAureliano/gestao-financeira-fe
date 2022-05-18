@@ -1,42 +1,54 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/";
+const baseURL = import.meta.env.VITE_API_URL;
+const _header = {
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+};
+
+interface HandleLoginProps {
+  username: string;
+  password: string;
+}
+interface RegisterProps {
+  name: string;
+  username: string;
+  password: string;
+}
 
 class AuthService {
+  async login({ username, password }: HandleLoginProps) {
+    
+    const user = `username=${username}&password=${password}`;
 
-//   login(username: string, password: string) {
-//     return axios
-//       .post(API_URL + "signin", {
-//         username,
-//         password
-//       })
-//       .then(response => {
-//         if (response.data.accessToken) {
-//           localStorage.setItem("user", JSON.stringify(response.data));
-//         }
+    const response = await axios.post(baseURL + "login", user, _header);
 
-//         return response.data;
-//       });
-//   }
+    if (response.data.access_token) {
+      localStorage.setItem("user_token", JSON.stringify(response.data));
+    }
+    console.log(response.status);
+    return response.status;
+  }
 
-//   logout() {
-//     localStorage.removeItem("user");
-//   }
+  logout() {
+    localStorage.removeItem("user_token");
+  }
 
-//   register(username: string, email: string, password: string) {
-//     return axios.post(API_URL + "signup", {
-//       username,
-//       email,
-//       password
-//     });
-//   }
+  register({name, username, password }: RegisterProps) {
+    return axios.post(
+      baseURL + "user",
+      {
+        name,
+        username,
+        password,
+      },
+      _header
+    );
+  }
 
   getCurrentUser() {
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem("user_token");
     if (userStr) return JSON.parse(userStr);
-
     return null;
   }
 }
-
 export default new AuthService();

@@ -1,25 +1,25 @@
+import axios from "axios";
+import { authHeader } from "./auth-header";
 
-import axios from 'axios'; 
-import authHeader from './auth-header';
+const baseURL = import.meta.env.VITE_API_URL;
 
-const API_URL = 'http://localhost:8080/api/test/';
+const USER_TOKEN = authHeader();
+
+const AuthStr = "Bearer ".concat(USER_TOKEN);
 
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
+  async getUsers() {
+    try {
+      const response = await axios.get(baseURL + "user", {
+        headers: { Authorization: AuthStr },
+      });
+
+      return response;
+    } catch (error) {
+      console.log("error " + error);
+      return error;
+    }
   }
-
-  // getUserBoard() {
-  //   return axios.get(API_URL + 'user', { headers: authHeader() });
-  // }
-
-  // getModeratorBoard() {
-  //   return axios.get(API_URL + 'mod', { headers: authHeader() });
-  // }
-
-  // getAdminBoard() {
-  //   return axios.get(API_URL + 'admin', { headers: authHeader() });
-  // }
 }
 
 export default new UserService();

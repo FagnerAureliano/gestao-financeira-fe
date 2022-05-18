@@ -1,16 +1,26 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import  financeIcon from "./../../../assets/financeIcon.png";
+import financeIcon from "./../../../assets/financeIcon.png";
 
-import validationSchema from "./schema";
+import validationSchema from "./schema"; 
+import authService from "../../../api/services/auth.service";
 
 const initialValues = {
   email: "",
   password: "",
 };
+interface Props {
+  email: string;
+  password: string;
+}
 
-function handleSigIn(values: any) {
-  console.log(values);
+function handleSigIn({ email, password }: Props) {
+  try {
+    authService.login({ username: email, password });
+    console.log();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function Login() {
@@ -95,7 +105,10 @@ export function Login() {
             </div>
 
             <div>
-              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon
                     className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
@@ -108,6 +121,6 @@ export function Login() {
           </Form>
         </Formik>
       </div>
-    </div> 
+    </div>
   );
 }
