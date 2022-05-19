@@ -1,7 +1,7 @@
-import { Login } from "./modules/login/components/Login";
+import { AppRoutes } from "./modules/AppRoutes"; 
 
 export function App() {
   return ( 
-      <Login /> 
+      <AppRoutes /> 
   );
 }
