@@ -1,4 +1,5 @@
 import axios from "axios";
+import userService from "./user.service";
 
 const baseURL = import.meta.env.VITE_API_URL;
 const _header = {
@@ -17,23 +18,22 @@ interface RegisterProps {
 
 class AuthService {
   async login({ username, password }: HandleLoginProps) {
-    
     const user = `username=${username}&password=${password}`;
-
     const response = await axios.post(baseURL + "login", user, _header);
+    const userLogued = await userService.getUser(username);
 
     if (response.data.access_token) {
       localStorage.setItem("user_token", JSON.stringify(response.data));
     }
-    console.log(response.status);
-    return response.status;
+    // console.log(user, userLogued, response.data);
+    return { token: response.data, user: userLogued };
   }
 
   logout() {
     localStorage.removeItem("user_token");
   }
 
-  register({name, username, password }: RegisterProps) {
+  register({ name, username, password }: RegisterProps) {
     return axios.post(
       baseURL + "user",
       {

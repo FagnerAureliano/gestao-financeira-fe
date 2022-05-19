@@ -4,6 +4,9 @@ import financeIcon from "./../../../assets/financeIcon.png";
 
 import validationSchema from "./schema"; 
 import authService from "../../../api/services/auth.service";
+import userService from "../../../api/services/user.service";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/auth";
 
 const initialValues = {
   email: "",
@@ -14,27 +17,39 @@ interface Props {
   password: string;
 }
 
-function handleSigIn({ email, password }: Props) {
-  try {
-    authService.login({ username: email, password });
-    console.log();
-  } catch (error) {
-    console.log(error);
-  }
-}
+// function handleSigIn({ email, password }: Props) {
+//   try {
+//     authService.login({ username: email, password }); 
+//   } catch (error) {
+//     console.log(error);
+//   } 
+//   userService.getUser(email)
+// }
 
 export function Login() {
+  const { signIn } = useContext(AuthContext)
+
+  function handleSigIn({ email, password }: Props) {
+    try {
+     signIn({ username: email, password }); 
+    } catch (error) {
+      console.log(error);
+    } 
+    // userService.getUser(email)
+  }
+
+
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <img
+          {/* <img
             className="mx-auto h-[70px] w-auto"
             src={financeIcon}
             alt="Workflow"
-          />
+          /> */}
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Gestão Financeira
+            {/* Gestão Financeira */}
           </h2>
           <h4 className="mt-3 text-center text-1xl font-extrabold text-gray-900">
             Sign in to your account

@@ -7,14 +7,38 @@ const USER_TOKEN = authHeader();
 
 const AuthStr = "Bearer ".concat(USER_TOKEN);
 
+export interface UserLog {
+  id?: number;
+  name?: string;
+  username?: string;
+  roles?: Role[];
+  ativo?: boolean;
+}
+
+export interface Role {
+  id?: number;
+  name?: string;
+}
+
 class UserService {
   async getUsers() {
     try {
       const response = await axios.get(baseURL + "user", {
         headers: { Authorization: AuthStr },
       });
-
-      return response;
+      console.log(response, "USERS");
+      return response.data;
+    } catch (error) {
+      console.log("error " + error);
+      return error;
+    }
+  }
+  async getUser(username: string |undefined) {
+    try {
+      const response = await axios.get(baseURL + "user/" + `${username}`, {
+        headers: { Authorization: AuthStr },
+      });
+      return response.data;
     } catch (error) {
       console.log("error " + error);
       return error;
