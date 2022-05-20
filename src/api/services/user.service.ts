@@ -1,8 +1,4 @@
-import axios from "axios";
-import { authHeader } from "./auth-header";
-
-const baseURL = import.meta.env.VITE_API_URL;  
-const AuthStr = "Bearer "+`${authHeader()}`;
+import { api, authHeader } from "./auth-headers";
 
 export interface UserLog {
   id?: number;
@@ -19,23 +15,21 @@ export interface Role {
 
 class UserService {
   async getUsers() {
+    authHeader();
     try {
-      const response = await axios.get(baseURL + "user", {
-        headers: { Authorization: AuthStr },
-      });
+      const response = await api.get("user");
       console.log(response, "USERS");
       return response.data;
     } catch (error) {
       console.log("error " + error);
       return error;
-    } 
+    }
   }
-  async getUser(username: string | undefined) { 
+  async getUser(username: string | undefined) {
+    authHeader();
     try {
-      const response = await axios.get(baseURL + "user/" + `${username}`, {
-        headers: { Authorization: AuthStr },
-      });
-      console.log(response)
+      const response = await api.get("user/" + `${username}`);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.log("error " + error);

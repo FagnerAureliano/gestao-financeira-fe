@@ -1,13 +1,7 @@
-import axios from "axios";
-import { setCookie } from "nookies";
-import userService from "./user.service";
+import { useNavigate } from 'react-router-dom';
+import { api } from "./auth-headers";
 
-const baseURL = import.meta.env.VITE_API_URL;
-const _header = {
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-};
-
-interface HandleLoginProps {
+export interface LoginProps {
   username: string;
   password: string;
 }
@@ -18,28 +12,24 @@ interface RegisterProps {
 }
 
 class AuthService {
-
-  async login({ username, password }: HandleLoginProps) {
+  async login({ username, password }: LoginProps) {
     const user = `username=${username}&password=${password}`;
-    const response = await axios.post(baseURL + "login", user, _header);
-  
-    return { token: response.data.access_token, user: {username, password} };
+    const response = await api.post("login", user);
+    return { token: response.data.access_token, user: { username, password } };
   }
 
   logout() {
-    localStorage.removeItem("user_token");
+    const navigate = useNavigate();
+    // destroyCookie(null, "fin_auth_token");
+    navigate("/");  
   }
 
   register({ name, username, password }: RegisterProps) {
-    return axios.post(
-      baseURL + "user",
-      {
-        name,
-        username,
-        password,
-      },
-      _header
-    );
+    return api.post("user", {
+      name,
+      username,
+      password,
+    });
   }
 
   getCurrentUser() {

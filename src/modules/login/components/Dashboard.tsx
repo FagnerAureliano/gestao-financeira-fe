@@ -7,9 +7,9 @@ import { AuthContext } from '../../../contexts/auth'
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']
 
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ')
-// }
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext)
@@ -76,7 +76,7 @@ export default function Dashboard() {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"
-                                src={user?.avatar_url}
+                                src= "https://github.com/FagnerAureliano.png"
                                 alt=""
                               />
                             </Menu.Button>
@@ -100,10 +100,10 @@ export default function Dashboard() {
                                   {({ active }) => (
                                     <a
                                       href="#"
-                                    //   className={classNames(
-                                    //     active ? 'bg-gray-100' : '',
-                                    //     'block px-4 py-2 text-sm text-gray-700'
-                                    //   )}
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
                                     >
                                       {item}
                                     </a>
@@ -165,13 +165,13 @@ export default function Dashboard() {
                   <div className="flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full"
-                      src={user?.avatar_url}
+                      src= "https://github.com/FagnerAureliano.png"
                       alt=""
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Diego Fernandes</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">diego@rocketseat.com.br</div>
+                    <div className="text-base font-medium leading-none text-white">{user?.name ? user.name : 'Teste Nome' }</div>
+                    <div className="text-sm font-medium leading-none text-gray-400">{user.username}</div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
