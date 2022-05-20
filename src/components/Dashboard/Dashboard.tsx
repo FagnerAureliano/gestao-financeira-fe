@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
  
-import { AuthContext } from '../../../contexts/auth'
+import { AuthContext } from '../../contexts/auth'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']

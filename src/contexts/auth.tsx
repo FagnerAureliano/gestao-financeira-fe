@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import { setCookie } from "nookies";
-import { useNavigate } from "react-router-dom";
-import authService, { LoginProps } from "../api/services/auth.service";
-import { UserLog } from "../api/services/user.service";
-import { api } from "../api/services/auth-headers";
+import { useNavigate } from "react-router-dom";  
+import { api } from "../api/auth-headers";
+import authService, { LoginProps } from "../api/auth.service";
+import { User } from "../api/user.service";
 
 interface AuthContextTye {
   user: any;
@@ -16,7 +16,7 @@ export const AuthContext = createContext({} as AuthContextTye);
 export function AuthProvider({ children }: any) {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<UserLog | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   
   const isAuthenticated = !!user;
 

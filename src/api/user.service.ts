@@ -1,6 +1,6 @@
 import { api, authHeader } from "./auth-headers";
 
-export interface UserLog {
+export interface User {
   id?: number;
   name?: string;
   username?: string;
@@ -17,11 +17,9 @@ class UserService {
   async getUsers() {
     authHeader();
     try {
-      const response = await api.get("user");
-      console.log(response, "USERS");
+      const response = await api.get("user"); 
       return response.data;
-    } catch (error) {
-      console.log("error " + error);
+    } catch (error) { 
       return error;
     }
   }

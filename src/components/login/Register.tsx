@@ -1,10 +1,8 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { LockClosedIcon } from "@heroicons/react/solid";
-import financeIcon from "./../../../assets/financeIcon.png";
-
-import validationSchema from "./schema";
 import { useContext } from "react";
-import { AuthContext } from "../../../contexts/auth";
+ 
+import { Field, Form, Formik } from "formik";
+import LockClosedIcon from "@heroicons/react/solid/LockClosedIcon";
+import { AuthContext } from "../../contexts/auth";
 
 const initialValues = {
   email: "",
@@ -15,26 +13,24 @@ interface Props {
   password: string;
 }
 
-export function Login() {
-  const { signIn } = useContext(AuthContext);
-
+export function Home() {
+  const { user } = useContext(AuthContext);
   function handleSigIn({ email, password }: Props) {
     try {
-      signIn({ username: email, password });
+      // signIn({ username: email, password });
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
-
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           {/* <img
-            className="mx-auto h-[70px] w-auto"
-            src={financeIcon}
-            alt="Workflow"
-          /> */}
+        className="mx-auto h-[70px] w-auto"
+        src={financeIcon}
+        alt="Workflow"
+       /> */}
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {/* Gestão Financeira */}
           </h2>
@@ -42,11 +38,7 @@ export function Login() {
             Sign in to your account
           </h4>
         </div>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={handleSigIn}
-          validationSchema={validationSchema}
-        >
+        <Formik initialValues={initialValues} onSubmit={handleSigIn}>
           <Form className="mt-8 space-y-6" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">

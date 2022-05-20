@@ -5,7 +5,7 @@ export interface LoginProps {
   username: string;
   password: string;
 }
-interface RegisterProps {
+export interface RegisterProps {
   name: string;
   username: string;
   password: string;

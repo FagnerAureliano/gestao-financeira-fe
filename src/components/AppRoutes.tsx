@@ -5,9 +5,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider } from "../contexts/auth";
-import Dashboard from "./login/components/Dashboard";
-import { Home } from "./login/components/Home";
-import { Login } from "./login/components/Login";
+import Dashboard from "./Dashboard/Dashboard";
+import { Login } from "./login/Login";
+import { Home } from "./login/Register";
+
 
 export function AppRoutes() { 
   return (
