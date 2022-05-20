@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setCookie } from "nookies";
 import userService from "./user.service";
 
 const baseURL = import.meta.env.VITE_API_URL;
@@ -17,16 +18,12 @@ interface RegisterProps {
 }
 
 class AuthService {
+
   async login({ username, password }: HandleLoginProps) {
     const user = `username=${username}&password=${password}`;
     const response = await axios.post(baseURL + "login", user, _header);
-    const userLogued = await userService.getUser(username);
-
-    if (response.data.access_token) {
-      localStorage.setItem("user_token", JSON.stringify(response.data));
-    }
-    // console.log(user, userLogued, response.data);
-    return { token: response.data, user: userLogued };
+  
+    return { token: response.data.access_token, user: {username, password} };
   }
 
   logout() {

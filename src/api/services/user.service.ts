@@ -1,11 +1,8 @@
 import axios from "axios";
 import { authHeader } from "./auth-header";
 
-const baseURL = import.meta.env.VITE_API_URL;
-
-const USER_TOKEN = authHeader();
-
-const AuthStr = "Bearer ".concat(USER_TOKEN);
+const baseURL = import.meta.env.VITE_API_URL;  
+const AuthStr = "Bearer "+`${authHeader()}`;
 
 export interface UserLog {
   id?: number;
@@ -31,13 +28,14 @@ class UserService {
     } catch (error) {
       console.log("error " + error);
       return error;
-    }
+    } 
   }
-  async getUser(username: string |undefined) {
+  async getUser(username: string | undefined) { 
     try {
       const response = await axios.get(baseURL + "user/" + `${username}`, {
         headers: { Authorization: AuthStr },
       });
+      console.log(response)
       return response.data;
     } catch (error) {
       console.log("error " + error);

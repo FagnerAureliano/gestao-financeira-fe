@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider } from "../contexts/auth";
+import Dashboard from "./login/components/Dashboard";
 import { Home } from "./login/components/Home";
 import { Login } from "./login/components/Login";
 
@@ -15,6 +16,7 @@ export function AppRoutes() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </AuthProvider>
     </Router>

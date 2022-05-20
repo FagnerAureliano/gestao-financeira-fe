@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { parseCookies, setCookie } from "nookies";
 import { useNavigate } from "react-router-dom";
 import authService from "../api/services/auth.service";
-import userService, { UserLog } from "../api/services/user.service";
+import userService, { UserLog } from "../api/services/user.service"; 
 
 interface SignInData {
   username: string;
@@ -26,31 +26,27 @@ export function AuthProvider({ children }: any) {
   const [user, setUser] = useState<UserLog | null>(null);
   const isAuthenticated = !!user;
 
-  useEffect(() => {
-    const {'fin_auth_token': token} = parseCookies();
-    
-    console.log(JSON.stringify(token))
-    
-
-    // if (token) {
-    //   userService.getUser(user?.username).then((res) => {
-    //     setUser(res)
-    //     console.log(res)
-    //   }); 
-    // }
-  });
+  // useEffect(() => {
+  //   const token = authHeader();
+  //   if (token) {     
+  //     // userService.getUser(user?.username).then((res) => {
+  //     //   setUser(res)
+  //     // }); 
+  //   }
+  //   console.log(user)
+  // });
 
   async function signIn({ username, password }: SignInData) {
     const { token, user } = await authService.login({
       username,
       password,
     });
-
+    
     setCookie(undefined, "fin_auth_token", token, {
       maxAge: 60 * 60 * 1, // 1h expire
     });
     setUser(user);
-    navigate("/home");
+    navigate("/dashboard");
   }
 
   return (
