@@ -6,9 +6,8 @@ export const api = axios.create({
 });
 api.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
-export function authHeader() {
-  const { "fin_auth_token": token } = parseCookies();
-  if (token) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
+const { fin_auth_token: token } = parseCookies();
+if (token) {
+  const usr = JSON.parse(token);
+   api.defaults.headers.common["Authorization"] = `Bearer ${usr.token}`;
 }

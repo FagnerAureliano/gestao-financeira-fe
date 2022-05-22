@@ -1,4 +1,5 @@
-import { api, authHeader } from "./auth-headers";
+import { api,    } from "../utils/api/api-headers";
+import { RegisterProps } from "../utils/auth/auth.service";
 
 export interface User {
   id?: number;
@@ -15,20 +16,29 @@ export interface Role {
 
 class UserService {
   async getUsers() {
-    authHeader();
     try {
-      const response = await api.get("user"); 
+      const response = await api.get("user");
       return response.data;
-    } catch (error) { 
+    } catch (error) {
       return error;
     }
   }
-  async getUser(username: string | undefined) {
-    authHeader();
+  async getUser(username: string | undefined) { 
     try {
       const response = await api.get("user/" + `${username}`);
-      console.log(response);
       return response.data;
+    } catch (error) {
+      console.log("error " + error);
+      return error;
+    }
+  }
+  async registerUser({ name, username, password }: RegisterProps) { 
+    try {
+      return api.post("user", {
+        name,
+        username,
+        password,
+      });
     } catch (error) {
       console.log("error " + error);
       return error;

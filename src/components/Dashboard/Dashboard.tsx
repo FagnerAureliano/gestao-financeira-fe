@@ -12,8 +12,10 @@ function classNames(...classes: string[]) {
 }
 
 export default function Dashboard() {
-  const { user } = useContext(AuthContext)
-
+  const { user, logout } = useContext(AuthContext)
+  function handleLogout(){
+    logout()
+  }
   useEffect(() => {
     // api.get('/users');
   }, [])
@@ -112,10 +114,12 @@ export default function Dashboard() {
                               ))}
                               <Menu.Item>
                                 <a
-                                  href="#"
                                   className='block px-4 py-2 text-sm text-gray-700'
-                                >
+                                ><button   onClick={handleLogout}>
+
+
                                   Sign out
+                                </button>
                                 </a>
                               </Menu.Item>
                             </Menu.Items>
