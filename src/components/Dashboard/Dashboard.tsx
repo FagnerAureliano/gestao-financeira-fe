@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
  
 import { AuthContext } from '../../contexts/auth'
+import { api } from '../../utils/api/api-headers'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']
@@ -17,7 +18,7 @@ export default function Dashboard() {
     logout()
   }
   useEffect(() => {
-    // api.get('/users');
+    api.get('/users');
   }, [])
 
   return (
@@ -175,7 +176,7 @@ export default function Dashboard() {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">{user?.name ? user.name : 'Teste Nome' }</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{user.username}</div>
+                    <div className="text-sm font-medium leading-none text-gray-400">{user?.username}</div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
